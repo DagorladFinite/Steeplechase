@@ -1,0 +1,5 @@
+*.opendb
+*.sdf
+*.suo
+*Debug*
+*Release*
