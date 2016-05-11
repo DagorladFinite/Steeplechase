@@ -1,5 +1,6 @@
 #include "Game.h"
 #include <SocketTools.h>
+#include "InputMemoryBitStream.h"
 
 
 int main(int args, char* argv[]) {

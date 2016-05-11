@@ -158,7 +158,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ClientProxy.h" />
+    <ClInclude Include="InputMemoryBitStream.h" />
+    <ClInclude Include="InputMemoryStream.h" />
     <ClInclude Include="NetworkServer.h" />
+    <ClInclude Include="OutputMemoryBitStream.h" />
+    <ClInclude Include="OutputMemoryStream.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
