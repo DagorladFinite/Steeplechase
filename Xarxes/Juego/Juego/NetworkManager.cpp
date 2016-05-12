@@ -1,4 +1,11 @@
 #include "NetworkManager.h"
+#include "OutputMemoryStream.h"
+#include "OutputMemoryBitStream.h"
+#include "InputMemoryBitStream.h"
+#include "InputMemoryStream.h"
+#include "Constants.h"
+
+
 
 NetworkManager::NetworkManager()
 {

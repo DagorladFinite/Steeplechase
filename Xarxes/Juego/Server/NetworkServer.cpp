@@ -1,4 +1,9 @@
 #include "NetworkServer.h"
+#include "OutputMemoryStream.h"
+#include "OutputMemoryBitStream.h"
+#include "InputMemoryBitStream.h"
+#include "InputMemoryStream.h"
+#include "Constants.h"
 
 NetworkServer::NetworkServer(std::string _strServerAddress)
 {
