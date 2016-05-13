@@ -38,9 +38,30 @@ bool NetworkServer::Receive()
 		if (numBytes < 1300)
 		{
 			buffer[numBytes] = '\0';
+			
 		}
 		//std::cout << "Recibo: " << buffer << std::endl;
 		exit = processMessage(buffer, from);
+	}
+	return exit;
+}
+
+bool NetworkServer::ReceiveBit()
+{
+	bool exit = false;
+	char buffer[1300];
+	SocketAddress from;
+
+	int numBytes = udpSocket.ReceiveFrom(buffer, 1300, from);
+	if (numBytes > 0)
+	{
+		if (numBytes < 1300)
+		{
+			buffer[numBytes] = '\0';
+
+		}
+		//std::cout << "Recibo: " << buffer << std::endl;
+		exit = processMessageBit(buffer,numBytes, from);
 	}
 	return exit;
 }
@@ -97,6 +118,41 @@ bool NetworkServer::processMessage(std::string _message, SocketAddress _saClient
 	}
 
 
+
+	return false;
+}
+
+bool NetworkServer::processMessageBit(char* _message,int _size, SocketAddress _saClient)
+{
+
+
+	InputMemoryBitStream imbs(_message, _size * 8);
+	PacketType pt = PacketType::PT_EMPTY;
+	imbs.Read(&pt, 3);
+	int player = 0;
+
+	for (int i = 0; i < 4; i++)
+	{
+		if (playerList[i].GetSocketAddress() == _saClient)
+		{
+			player = i;
+		}
+	}
+
+	if (pt == PacketType::PT_HELLO) {
+
+		std::cout << "Hola!";
+		std::string nick;
+		imbs.ReadString(&nick);
+		playerList[playerlibre].SetNick(nick);
+		playerList[playerlibre].SetAddress(_saClient);
+		playerList[playerlibre].connected = true;
+		OutputMemoryBitStream ombs;
+		ombs.Write(PacketType::PT_WELCOME, 3);
+		ombs.Write(player, 2);
+		udpSocket.SendTo(ombs.GetBufferPtr(), 1300, playerList[playerlibre].GetSocketAddress());
+		playerlibre++;
+	}
 
 	return false;
 }

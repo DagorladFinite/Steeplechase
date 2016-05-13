@@ -52,6 +52,24 @@ int NetworkManager::Receive(std::string& _message)
 	return bytesReceived;
 }
 
+int NetworkManager::ReceiveBit(std::string& _message)
+{
+	char buffer[1300];
+	SocketAddress from;
+	int bytesReceived = udpSocket.ReceiveFrom(buffer, 1300, from);
+	if (bytesReceived > 0)
+	{
+
+		if (bytesReceived < 1300)
+		{
+			buffer[bytesReceived] = '\0';
+		}
+		_message = buffer;
+	}
+	processBit(buffer,bytesReceived);
+	return bytesReceived;
+}
+
 void NetworkManager::sendHello() {
 
 	if (status == 0) {
@@ -62,6 +80,23 @@ void NetworkManager::sendHello() {
 			std::string message = "HELLO";
 			message = message.append("_" + nick);
 			Send(message);
+			timeOfLastHello = time;
+		}
+	}
+}
+
+void NetworkManager::sendHelloBit() {
+
+	if (status == 0) {
+
+		clock_t time = clock();
+		if (time > timeOfLastHello + 100)
+		{
+			OutputMemoryBitStream ombs;
+			ombs.Write(PacketType::PT_HELLO, 3);
+			ombs.WriteString(nick);
+			Send(ombs.GetBufferPtr());
+			std::cout << "Envío hello" << std::endl;
 			timeOfLastHello = time;
 		}
 	}
@@ -89,4 +124,18 @@ void NetworkManager::process(std::string _message) {
 		std::cout << "Respuesta\n";
 		status = 1;
 	}
+}
+
+void NetworkManager::processBit(char* _message, int _size) {
+
+	InputMemoryBitStream imbs(_message, _size * 8);
+	PacketType pt = PacketType::PT_EMPTY;
+	imbs.Read(&pt, 3);
+
+	if (pt == PacketType::PT_WELCOME) {
+
+		std::cout << "Me han oido!";
+		status = 1;
+	}
+	
 }

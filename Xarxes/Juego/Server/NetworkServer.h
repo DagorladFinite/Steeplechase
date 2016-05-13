@@ -8,13 +8,22 @@ private:
 	
 	UDPSocket udpSocket;
 	ClientProxy playerList[4];
+
+	//Funciones que procesan los mensajes
+	//Con strings
 	bool processMessage(std::string _message, SocketAddress _saClient);
+	//Serializado a nivel de bit (WOOOOOOOOOOWOWOWOWOWOWOWOWOW)
+	bool processMessageBit(char* _message,int _size, SocketAddress _saClient);
 
 
 public:
 	NetworkServer(std::string _strServerAddress);
 	~NetworkServer();
+	//Funciones que reciben tramas
+	//Con strings
 	bool Receive();
+	//Serializado a nivel de bit (WOWOWOWOWOWOWOWOWOOOOOOOOOOOOOWOWOWOWOWOW)
+	bool ReceiveBit();
 	void SendToAll(std::string _message);
 	int playerlibre = 0;
 	
