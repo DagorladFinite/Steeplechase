@@ -20,6 +20,9 @@ public:
 	//Envía una trama que nosotros decidamos
 	void Send(std::string _message);
 
+	void SendBit(char* _message,int _size);
+
+
 	//Envía los HELLO para conectarse al servidor
 	//Con strings
 	void sendHello();

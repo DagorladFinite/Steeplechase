@@ -68,9 +68,9 @@ void Game::gameLoop() {
 
 		//Enviamos señales
 		std::string message;
-		network.sendHello();
+		network.sendHelloBit();
 
-		network.Receive(message);
+		network.ReceiveBit(message);
 			//Detect keyboard and/or mouse events
 		_graphic.detectInputEvents();
 			//Execute the player commands 
@@ -113,7 +113,7 @@ void Game::executePlayerCommands() {
 
 	if (_graphic.isKeyPressed(SDLK_SPACE)) {
 
-		if (hero.getXAtWorld() < 640) {
+		/*if (hero.getXAtWorld() < 640) {
 			std::string msg = "POSITION_";
 			std::string pos = std::to_string(hero.getXAtWorld());
 			msg = msg.append(pos);
@@ -125,7 +125,7 @@ void Game::executePlayerCommands() {
 			network.Send(ask);
 
 			hero.setPositionAtWorld(hero.getXAtWorld() + 3, hero.getYAtWorld());
-		}
+		}*/
 	}
 
 	if (_graphic.isKeyPressed(SDLK_m)) {

@@ -19,7 +19,7 @@ NetworkManager::NetworkManager(std::string _addressServer, std::string _addressC
 	myAddress.SetAddress(_addressClient);
 	int errBind = udpSocket.Bind(myAddress);
 	int errBlock = udpSocket.NonBlocking(true);
-
+	nick = _nick;
 }
 
 
@@ -32,6 +32,12 @@ void NetworkManager::Send(std::string _message)
 {
 	//std::cout << "Envío: " << _message.c_str() << std::endl;
 	udpSocket.SendTo(_message.c_str(), _message.length(), saServer);
+}
+
+void NetworkManager::SendBit(char* _message,int _size)
+{
+	//std::cout << "Envío: " << _message.c_str() << std::endl;
+	udpSocket.SendTo(_message,_size, saServer);
 }
 
 int NetworkManager::Receive(std::string& _message)
@@ -95,7 +101,7 @@ void NetworkManager::sendHelloBit() {
 			OutputMemoryBitStream ombs;
 			ombs.Write(PacketType::PT_HELLO, 3);
 			ombs.WriteString(nick);
-			Send(ombs.GetBufferPtr());
+			SendBit(ombs.GetBufferPtr(),ombs.GetByteLength());
 			std::cout << "Envío hello" << std::endl;
 			timeOfLastHello = time;
 		}

@@ -11,7 +11,7 @@ void main(int args, char* argv[]) {
 	{
 
 		
-		network.Receive();
+		network.ReceiveBit();
 
 	
 	}
