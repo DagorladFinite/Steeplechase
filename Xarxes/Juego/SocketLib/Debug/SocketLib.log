@@ -1,14 +1,9 @@
-﻿Build started 13/05/2016 16:17:41.
-     1>Project "C:\Users\vnavarro\Documents\GitHub\Steeplechase\Xarxes\Juego\SocketLib\SocketLib.vcxproj" on node 2 (Build target(s)).
+﻿Build started 17/05/2016 11:19:40.
+     1>Project "C:\Users\Víctor\Documents\GitHub\Steeplechase\Xarxes\Juego\SocketLib\SocketLib.vcxproj" on node 2 (Build target(s)).
      1>Lib:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\Lib.exe /OUT:"C:\Users\vnavarro\Documents\GitHub\Steeplechase\Xarxes\Juego\Debug\SocketLib.lib" /NOLOGO Debug\GenericSocket.obj
-         Debug\SocketAddress.obj
-         Debug\SocketTools.obj
-         Debug\TCPSocket.obj
-         Debug\UDPSocket.obj
-         SocketLib.vcxproj -> C:\Users\vnavarro\Documents\GitHub\Steeplechase\Xarxes\Juego\Debug\SocketLib.lib
-     1>Done Building Project "C:\Users\vnavarro\Documents\GitHub\Steeplechase\Xarxes\Juego\SocketLib\SocketLib.vcxproj" (Build target(s)).
+         SocketLib.vcxproj -> C:\Users\Víctor\Documents\GitHub\Steeplechase\Xarxes\Juego\Debug\SocketLib.lib
+     1>Done Building Project "C:\Users\Víctor\Documents\GitHub\Steeplechase\Xarxes\Juego\SocketLib\SocketLib.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.90
+Time Elapsed 00:00:00.06

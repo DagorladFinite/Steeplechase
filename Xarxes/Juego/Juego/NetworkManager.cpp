@@ -108,6 +108,25 @@ void NetworkManager::sendHelloBit() {
 	}
 }
 
+void NetworkManager::sendMove() {
+
+	if (status == 1) {
+
+		clock_t time = clock();
+		if (time > sendTime + 100)
+		{
+			OutputMemoryBitStream ombs;
+			ombs.Write(PacketType::PT_MOVE, 3);
+			ombs.Write(timesPressed, 2);
+			SendBit(ombs.GetBufferPtr(), ombs.GetByteLength());
+			std::cout << "Envío el número de veces que he pulsado"<< timesPressed << std::endl;
+			timesPressed = 0;
+			sendTime = time;
+		}
+	}
+
+}
+
 void NetworkManager::process(std::string _message) {
 
 	int index_ = _message.find_first_of('_');
@@ -140,6 +159,8 @@ void NetworkManager::processBit(char* _message, int _size) {
 
 	if (pt == PacketType::PT_WELCOME) {
 
+		imbs.Read(&playerNumber, 2);
+		std::cout << playerNumber;
 		std::cout << "Me han oido!";
 		status = 1;
 	}

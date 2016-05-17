@@ -1,6 +1,7 @@
 #pragma once
 #include "ClientProxy.h"
 #include <UDPSocket.h>
+#include <time.h>
 class NetworkServer
 {
 private:
@@ -15,6 +16,8 @@ private:
 	//Serializado a nivel de bit (WOOOOOOOOOOWOWOWOWOWOWOWOWOW)
 	bool processMessageBit(char* _message,int _size, SocketAddress _saClient);
 
+	clock_t dispatchTime;
+
 
 public:
 	NetworkServer(std::string _strServerAddress);
@@ -25,7 +28,11 @@ public:
 	//Serializado a nivel de bit (WOWOWOWOWOWOWOWOWOOOOOOOOOOOOOWOWOWOWOWOW)
 	bool ReceiveBit();
 	void SendToAll(std::string _message);
+
+	void Dispatch();
 	int playerlibre = 0;
+
+
 	
 };
 

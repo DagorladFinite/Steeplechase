@@ -19,6 +19,8 @@ NetworkServer::NetworkServer(std::string _strServerAddress)
 	}
 
 
+
+
 }
 
 
@@ -154,5 +156,34 @@ bool NetworkServer::processMessageBit(char* _message,int _size, SocketAddress _s
 		playerlibre++;
 	}
 
+	if (pt == PacketType::PT_MOVE) {
+
+		std::cout << "Me ha llegado una petición de movimiento."<< std::endl;;
+		int toMove = 0;
+		imbs.Read(&toMove, 2);
+
+		playerList[player].position = playerList[player].position + (3 * toMove);
+		std::cout << "El jugador se ha movido a la posición: " << playerList[player].position << std::endl;
+		
+
+	}
+
 	return false;
+}
+
+void NetworkServer::Dispatch(){
+
+	clock_t time = clock();
+	if (time > dispatchTime + 125)
+	{
+		OutputMemoryBitStream ombs;
+		ombs.Write(PacketType::PT_MOVE, 3);
+		ombs.Write(timesPressed, 2);
+		SendBit(ombs.GetBufferPtr(), ombs.GetByteLength());
+		std::cout << "Envío el número de veces que he pulsado" << timesPressed << std::endl;
+		timesPressed = 0;
+		sendTime = time;
+	}
+
+
 }

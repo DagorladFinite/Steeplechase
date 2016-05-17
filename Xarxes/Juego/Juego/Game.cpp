@@ -48,11 +48,10 @@ void Game::init() {
 		//Set the font style
 	_graphic.setFontStyle(TTF_STYLE_NORMAL);
 		//Initialize the game elements
-	hero.setInitialValues(10, 75, SPRITE_HERO, 0, 4);
-	hero2.setInitialValues(10,225, SPRITE_HERO, 0, 4);
-	hero3.setInitialValues(10, 375, SPRITE_HERO, 0, 4);
-	hero4.setInitialValues(10, 525, SPRITE_HERO, 0, 4);
-	fire.setInitialValues(100, 100, SPRITE_FIRE, 0, 5);
+	players[0].setInitialValues(10, 75, SPRITE_HERO, 0, 4);
+	players[1].setInitialValues(10,225, SPRITE_HERO, 0, 4);
+	players[2].setInitialValues(10, 375, SPRITE_HERO, 0, 4);
+	players[3].setInitialValues(10, 525, SPRITE_HERO, 0, 4);
 
 	//network.initialize()
 }
@@ -70,13 +69,28 @@ void Game::gameLoop() {
 		std::string message;
 		network.sendHelloBit();
 
+		
+
 		network.ReceiveBit(message);
 			//Detect keyboard and/or mouse events
 		_graphic.detectInputEvents();
+
+		//Envíamos el input del jugador al servidor
+		//Sólo lo enviaremos si ha pulsado el botón.
+	
+		if (moveSendCheck) {
+
+			network.sendMove();
+
+		}
+		moveSendCheck = false;
+
 			//Execute the player commands 
 		executePlayerCommands();
+
 			//Update the game physics
 		doPhysics();
+
 			//Render game
 		renderGame();			
 	}
@@ -113,19 +127,12 @@ void Game::executePlayerCommands() {
 
 	if (_graphic.isKeyPressed(SDLK_SPACE)) {
 
-		/*if (hero.getXAtWorld() < 640) {
-			std::string msg = "POSITION_";
-			std::string pos = std::to_string(hero.getXAtWorld());
-			msg = msg.append(pos);
-			network.Send(msg);
+		if (players[network.playerNumber].getXAtWorld() < 640) {
 
-			std::string ask = "ASKING_";
-			std::string pos2 = std::to_string(hero.getXAtWorld() + 3);
-			ask = ask.append(pos2);
-			network.Send(ask);
-
-			hero.setPositionAtWorld(hero.getXAtWorld() + 3, hero.getYAtWorld());
-		}*/
+			network.timesPressed++;
+			moveSendCheck = true;
+			players[network.playerNumber].setPositionAtWorld(players[network.playerNumber].getXAtWorld() + 3, players[network.playerNumber].getYAtWorld());
+		}
 	}
 
 	if (_graphic.isKeyPressed(SDLK_m)) {
@@ -141,11 +148,10 @@ void Game::executePlayerCommands() {
 * Execute the game physics
 */
 void Game::doPhysics() {	
-	fire.nextFrame((int) (_graphic.getCurrentTicks() * SPRITE_SPEED));
-	hero.nextFrame((int)(_graphic.getCurrentTicks() * SPRITE_SPEED));
-	hero2.nextFrame((int)(_graphic.getCurrentTicks() * SPRITE_SPEED));
-	hero3.nextFrame((int)(_graphic.getCurrentTicks() * SPRITE_SPEED));
-	hero4.nextFrame((int)(_graphic.getCurrentTicks() * SPRITE_SPEED));
+	players[0].nextFrame((int)(_graphic.getCurrentTicks() * SPRITE_SPEED));
+	players[1].nextFrame((int)(_graphic.getCurrentTicks() * SPRITE_SPEED));
+	players[2].nextFrame((int)(_graphic.getCurrentTicks() * SPRITE_SPEED));
+	players[3].nextFrame((int)(_graphic.getCurrentTicks() * SPRITE_SPEED));
 }
 
 /**
@@ -161,10 +167,10 @@ void Game::renderGame() {
 	_graphic.drawFilledRectangle(WHITE, 20, 500, 660, 150);
 
 		//Draw some sprites
-	drawSprite(hero);
-	drawSprite(hero2);
-	drawSprite(hero3);
-	drawSprite(hero4);
+	drawSprite(players[0]);
+	drawSprite(players[1]);
+	drawSprite(players[2]);
+	drawSprite(players[3]);
 		//Refresh screen
 	_graphic.refreshWindow();	
 }

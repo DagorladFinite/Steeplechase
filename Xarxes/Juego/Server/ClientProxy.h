@@ -9,7 +9,7 @@ class ClientProxy
 private:
 	std::string nick;
 	SocketAddress saClient;
-	int position;
+	
 	
 
 public:
@@ -23,5 +23,6 @@ public:
 	~ClientProxy();
 
 	bool connected = false;
+	int position;
 };
 

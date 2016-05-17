@@ -28,12 +28,10 @@ class Game {
 		int _screenHeight;				//Screen height in pixels				
 		GameState _gameState;			//It describes the game state				
 		SDLInterface _graphic;			//Manage the SDL graphic library		
-		Sprite hero;
-		Sprite hero2;
-		Sprite hero3;
-		Sprite hero4;
-		Sprite fire;
+		Sprite players[4];
 		NetworkManager network;
+		
+		bool moveSendCheck = false;
 
 			//Internal methods for the game execution
 		void init();
@@ -42,6 +40,7 @@ class Game {
 		void doPhysics();
 		void renderGame();
 		void drawSprite(Sprite & e);
+		
 		
 };
 

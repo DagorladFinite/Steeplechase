@@ -29,11 +29,17 @@ public:
 	//Serializado a nivel de bit (WOOOOOOOOOOW)
 	void sendHelloBit();
 
+	//Envía el número de veces que me he movido al servidor
+	void sendMove();
+
 	//Funciones que procesan los mensajes
 	//Con strings
 	void process(std::string _message);
 	//Serializado a nivel de bit (WOOOOOOOOOOOOOOOOOWOWOWOWOW)
 	void processBit(char* _message,int _size);
+
+	int playerNumber;
+	int timesPressed;
 
 private:
 	UDPSocket udpSocket;
@@ -41,7 +47,7 @@ private:
 	std::string nick;
 	int playerId;
 	clock_t timeOfLastHello;
-	clock_t timeOfLastMove;
+	clock_t sendTime;
 
 	//LEYENDA:
 	//0 NO CONECTADO
