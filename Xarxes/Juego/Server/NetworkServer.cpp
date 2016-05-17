@@ -155,6 +155,13 @@ bool NetworkServer::processMessageBit(char* _message,int _size, SocketAddress _s
 		playerList[playerlibre].SetNick(nick);
 		playerList[playerlibre].SetAddress(_saClient);
 		playerList[playerlibre].connected = true;
+		for (int i = 0; i < 4; i++)
+		{
+			if (playerList[i].GetSocketAddress() == _saClient)
+			{
+				player = i;
+			}
+		}
 		OutputMemoryBitStream ombs;
 		ombs.Write(PacketType::PT_WELCOME, 3);
 		ombs.Write(player, 2);
