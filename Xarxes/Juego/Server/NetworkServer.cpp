@@ -13,13 +13,19 @@ NetworkServer::NetworkServer(std::string _strServerAddress)
 	//TODO: No se están controlando errores de Bind y NonBlocking
 	udpSocket.Bind(saServer);
 	udpSocket.NonBlocking(true);
+
+	//Forzamos que los jugadores estén desconectados
+	//También nos aseguramos de que las posiciones iniciales de los jugadores
+	//en el servidor corresponden con las de los clientes.
+	//Esto es muy importante para asegurarnos de que el movimiento relativo
+	//y el dispatch "absolutista" del servidor tienen los valores correctos.
 	for (int i = 0; i < 4; i++)
 	{
 		playerList[i].connected = false;
+		playerList[i].position = 10;
 	}
 
-
-
+	
 
 }
 
@@ -177,12 +183,15 @@ void NetworkServer::Dispatch(){
 	if (time > dispatchTime + 125)
 	{
 		OutputMemoryBitStream ombs;
-		ombs.Write(PacketType::PT_MOVE, 3);
-		ombs.Write(timesPressed, 2);
-		SendBit(ombs.GetBufferPtr(), ombs.GetByteLength());
-		std::cout << "Envío el número de veces que he pulsado" << timesPressed << std::endl;
-		timesPressed = 0;
-		sendTime = time;
+		ombs.Write(PacketType::PT_AUTHOR, 3);
+		for (size_t i = 0; i < 4; i++)
+		{
+			//Escribimos en nuestro OMBS las posiciones absolutas de los jugadores.
+			ombs.Write(playerList[i].position, 10);
+
+		}
+		SendToAll(ombs.GetBufferPtr());
+		dispatchTime = time;
 	}
 
 
