@@ -41,6 +41,13 @@ public:
 	int playerNumber;
 	int timesPressed;
 
+	int playerPositions[4];
+
+	//LEYENDA:
+	//0 NO CONECTADO
+	//1 CONECTADO
+	int status = 0;
+
 private:
 	UDPSocket udpSocket;
 	SocketAddress saServer;
@@ -49,9 +56,6 @@ private:
 	clock_t timeOfLastHello;
 	clock_t sendTime;
 
-	//LEYENDA:
-	//0 NO CONECTADO
-	//1 CONECTADO
-	int status = 0;
+
 };
 

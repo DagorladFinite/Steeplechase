@@ -164,5 +164,24 @@ void NetworkManager::processBit(char* _message, int _size) {
 		std::cout << "Me han oido!";
 		status = 1;
 	}
+	else if (pt == PacketType::PT_AUTHOR) {
+
+		std::cout << "Posición del jugador 1: "<< std::endl;
+		imbs.Read(&playerPositions[0], 10);
+		std::cout << &playerPositions[0];
+
+		std::cout << "Posición del jugador 2: " << std::endl;
+		imbs.Read(&playerPositions[1], 10);
+		std::cout << &playerPositions[1];
+
+		std::cout << "Posición del jugador 3: " << std::endl;
+		imbs.Read(&playerPositions[2], 10);
+		std::cout << &playerPositions[2];
+
+		std::cout << "Posición del jugador 4: " << std::endl;
+		imbs.Read(&playerPositions[3], 10);
+		std::cout << &playerPositions[3];
+
+	}
 	
 }

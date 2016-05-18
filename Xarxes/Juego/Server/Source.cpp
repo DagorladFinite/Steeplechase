@@ -12,6 +12,7 @@ void main(int args, char* argv[]) {
 
 		
 		network.ReceiveBit();
+		network.Dispatch();
 
 	
 	}

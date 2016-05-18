@@ -28,6 +28,7 @@ public:
 	//Serializado a nivel de bit (WOWOWOWOWOWOWOWOWOOOOOOOOOOOOOWOWOWOWOWOW)
 	bool ReceiveBit();
 	void SendToAll(std::string _message);
+	void sendToAllChar(char*);
 
 	void Dispatch();
 	int playerlibre = 0;

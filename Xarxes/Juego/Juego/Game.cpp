@@ -126,12 +126,13 @@ void Game::executePlayerCommands() {
 	}
 
 	if (_graphic.isKeyPressed(SDLK_SPACE)) {
+		if(network.status ==1){
+			if (players[network.playerNumber].getXAtWorld() < 640) {
 
-		if (players[network.playerNumber].getXAtWorld() < 640) {
-
-			network.timesPressed++;
-			moveSendCheck = true;
-			players[network.playerNumber].setPositionAtWorld(players[network.playerNumber].getXAtWorld() + 3, players[network.playerNumber].getYAtWorld());
+				network.timesPressed++;
+				moveSendCheck = true;
+				players[network.playerNumber].setPositionAtWorld(players[network.playerNumber].getXAtWorld() + 3, players[network.playerNumber].getYAtWorld());
+			}
 		}
 	}
 
@@ -147,7 +148,17 @@ void Game::executePlayerCommands() {
 /*
 * Execute the game physics
 */
-void Game::doPhysics() {	
+void Game::doPhysics() {
+
+	//Actualizamos las posiciones de los jugadores con las posiciones que recibimos del servidor
+	for (size_t i = 0; i < 4; i++)
+	{
+
+		players[i].setPositionAtWorld(network.playerPositions[i], players[i].getYAtWorld());
+
+	}
+
+	//Animación del pollo (Placeholder)
 	players[0].nextFrame((int)(_graphic.getCurrentTicks() * SPRITE_SPEED));
 	players[1].nextFrame((int)(_graphic.getCurrentTicks() * SPRITE_SPEED));
 	players[2].nextFrame((int)(_graphic.getCurrentTicks() * SPRITE_SPEED));

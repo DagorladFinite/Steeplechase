@@ -84,6 +84,16 @@ void NetworkServer::SendToAll(std::string _message)
 	
 }
 
+void NetworkServer::sendToAllChar(char* _message){
+
+	for (size_t i = 0; i < 4; i++)
+	{
+		if (playerList[i].connected == true)
+			udpSocket.SendTo(_message, 1300, playerList[i].GetSocketAddress());
+	}
+
+}
+
 bool NetworkServer::processMessage(std::string _message, SocketAddress _saClient)
 {
 
@@ -197,7 +207,7 @@ void NetworkServer::Dispatch(){
 			ombs.Write(playerList[i].position, 10);
 
 		}
-		SendToAll(ombs.GetBufferPtr());
+		sendToAllChar(ombs.GetBufferPtr());
 		dispatchTime = time;
 	}
 
