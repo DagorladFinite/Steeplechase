@@ -98,11 +98,21 @@ void NetworkManager::sendHelloBit() {
 		clock_t time = clock();
 		if (time > timeOfLastHello + 100)
 		{
+
+			//Codifico a nivel de bit
 			OutputMemoryBitStream ombs;
+
+			//Tipo de paquete
 			ombs.Write(PacketType::PT_HELLO, 3);
+
+			//Nick
 			ombs.WriteString(nick);
+
+			//Envío
 			SendBit(ombs.GetBufferPtr(),ombs.GetByteLength());
 			std::cout << "Envío hello" << std::endl;
+
+			//Pongo el timer a cero
 			timeOfLastHello = time;
 		}
 	}
@@ -115,12 +125,30 @@ void NetworkManager::sendMove() {
 		clock_t time = clock();
 		if (time > sendTime + 100)
 		{
+
+			//Codifico a nivel de bit
 			OutputMemoryBitStream ombs;
+
+			//Tipo de paquete
 			ombs.Write(PacketType::PT_MOVE, 3);
+
+			//Número de veces que se ha pulsado spacebar
 			ombs.Write(timesPressed, 2);
+
+			//Posición del jugador antes del movimiento
+			//Enviamos esta información para corregir los problemas que pueda dar la pérdida de paquetes
+
+			
+			ombs.Write(playerPrevPositions[playerNumber], 10);
+
+			//Envío
 			SendBit(ombs.GetBufferPtr(), ombs.GetByteLength());
 			std::cout << "Envío el número de veces que he pulsado"<< timesPressed << std::endl;
+			
+			//Pongo el contador de inputs a cero
 			timesPressed = 0;
+
+			//Pongo el timer a cero
 			sendTime = time;
 		}
 	}

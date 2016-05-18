@@ -75,18 +75,28 @@ void Game::gameLoop() {
 			//Detect keyboard and/or mouse events
 		_graphic.detectInputEvents();
 
+			//Execute the player commands 
+		executePlayerCommands();
+
 		//Envíamos el input del jugador al servidor
 		//Sólo lo enviaremos si ha pulsado el botón.
-	
+
 		if (moveSendCheck) {
 
-			network.sendMove();
+			//Pérdida de paquetes. 
+			//Tenemos un 1% de posibilidades de que "el paquete no llegue"
+			int pickedChoice = (int)(rand() % 100) + 1;
+
+			if (pickedChoice > 1) {
+				network.sendMove();
+			}
+			else {
+				std::cout << "¡Paquete perdido!" << std::endl;
+			}
+
 
 		}
 		moveSendCheck = false;
-
-			//Execute the player commands 
-		executePlayerCommands();
 
 			//Update the game physics
 		doPhysics();
@@ -129,8 +139,11 @@ void Game::executePlayerCommands() {
 		if(network.status ==1){
 			if (players[network.playerNumber].getXAtWorld() < 640) {
 
+				
+
 				network.timesPressed++;
 				moveSendCheck = true;
+				network.playerPrevPositions[network.playerNumber] = network.playerPositions[network.playerNumber];
 				players[network.playerNumber].setPositionAtWorld(players[network.playerNumber].getXAtWorld() + 3, players[network.playerNumber].getYAtWorld());
 			}
 		}

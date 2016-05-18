@@ -183,8 +183,15 @@ bool NetworkServer::processMessageBit(char* _message,int _size, SocketAddress _s
 
 		std::cout << "Me ha llegado una petición de movimiento."<< std::endl;;
 		int toMove = 0;
+
+		//Incremento de posición
 		imbs.Read(&toMove, 2);
 
+		//Posición de seguridad enviada por el cliente.
+		//Se establece aquí para evitar el impacto de la perdida de paquetes.
+		imbs.Read(&playerList[player].position, 10);
+
+		
 		playerList[player].position = playerList[player].position + (3 * toMove);
 		std::cout << "El jugador se ha movido a la posición: " << playerList[player].position << std::endl;
 		

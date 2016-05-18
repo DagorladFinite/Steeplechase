@@ -42,6 +42,7 @@ public:
 	int timesPressed;
 
 	int playerPositions[4];
+	int playerPrevPositions[4];
 
 	//LEYENDA:
 	//0 NO CONECTADO
