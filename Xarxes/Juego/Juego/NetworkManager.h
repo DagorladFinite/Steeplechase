@@ -21,6 +21,8 @@ public:
 	void Send(std::string _message);
 
 	void SendBit(char* _message,int _size);
+	bool Start();
+	bool start = false;
 
 
 	//Envía los HELLO para conectarse al servidor

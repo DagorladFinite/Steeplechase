@@ -40,6 +40,11 @@ void NetworkManager::SendBit(char* _message,int _size)
 	udpSocket.SendTo(_message,_size, saServer);
 }
 
+bool NetworkManager::Start()
+{
+	return start;
+}
+
 int NetworkManager::Receive(std::string& _message)
 {
 	char buffer[1300];
@@ -164,6 +169,7 @@ void NetworkManager::process(std::string _message) {
 	if (_message == "WELCOME") {
 
 		std::cout << "Me han oído";
+		
 		status = 1;
 	}
 	if (cabecera == "POSITION") {
@@ -190,6 +196,7 @@ void NetworkManager::processBit(char* _message, int _size) {
 		imbs.Read(&playerNumber, 2);
 		std::cout << playerNumber;
 		std::cout << "Me han oido!";
+		start = true;
 		status = 1;
 	}
 	else if (pt == PacketType::PT_AUTHOR) {

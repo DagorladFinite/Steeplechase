@@ -41,6 +41,9 @@
     <ClInclude Include="SDLInterface.h" />
     <ClInclude Include="Sprite.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{580E81F5-E55D-48AC-9DA0-B1E43D886F60}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>

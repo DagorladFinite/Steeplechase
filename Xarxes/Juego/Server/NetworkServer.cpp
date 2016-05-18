@@ -94,6 +94,8 @@ void NetworkServer::sendToAllChar(char* _message){
 
 }
 
+
+
 bool NetworkServer::processMessage(std::string _message, SocketAddress _saClient)
 {
 

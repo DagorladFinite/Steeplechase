@@ -45,6 +45,8 @@ void Game::init() {
 		//Load the sprites associated to the different game elements
 	_graphic.loadTexture(SPRITE_HERO, "../sharedResources/images/characters/hero.png");
 	_graphic.loadTexture(SPRITE_FIRE, "../sharedResources/images/characters/fireSprite.png");
+	_graphic.loadTexture(LOAD, "../sharedResources/images/interface/load.png");
+	_graphic.loadTexture(TRACK, "../sharedResources/images/interface/track.png");
 		//Set the font style
 	_graphic.setFontStyle(TTF_STYLE_NORMAL);
 		//Initialize the game elements
@@ -184,17 +186,31 @@ void Game::doPhysics() {
 void Game::renderGame() {			
 		//Clear the screen
 	_graphic.clearWindow();
+	if (network.Start() == true)
+	{
+		_graphic.clearWindow();
 		//Draw basic elements
-	_graphic.drawFilledRectangle(RED, 20, 50, 660, 150);
-	_graphic.drawFilledRectangle(BLUE, 20, 200, 660, 150);
-	_graphic.drawFilledRectangle(GREEN, 20, 350, 660, 150);
-	_graphic.drawFilledRectangle(WHITE, 20, 500, 660, 150);
-
+		//_graphic.drawFilledRectangle(RED, 20, 50, 660, 150);
+		_graphic.drawTexture(TRACK, 0, 0, 700, 700, 0, 0, 700, 700);
+		//_graphic.drawTexture(TRACK, 10, 0, 660, 175, 10, 0, 660, 175);
+		//_graphic.drawTexture(TRACK, 20, 350, 660, 175, 20, 350, 660, 175);
+		//_graphic.drawTexture(TRACK, 20, 500, 660, 175, 20, 500, 660, 175);
+		/*_graphic.drawFilledRectangle(BLUE, 20, 200, 660, 150);
+		_graphic.drawFilledRectangle(GREEN, 20, 350, 660, 150);
+		_graphic.drawFilledRectangle(WHITE, 20, 500, 660, 150);
+		*/
 		//Draw some sprites
-	drawSprite(players[0]);
-	drawSprite(players[1]);
-	drawSprite(players[2]);
-	drawSprite(players[3]);
+		drawSprite(players[0]);
+		drawSprite(players[1]);
+		drawSprite(players[2]);
+		drawSprite(players[3]);
+	
+	}
+	else if (network.Start() == false) {
+		_graphic.clearWindow();
+		_graphic.drawTexture(LOAD, 0, 0, 700, 700, 0, 0, 700, 700);
+		
+	}
 		//Refresh screen
 	_graphic.refreshWindow();	
 }

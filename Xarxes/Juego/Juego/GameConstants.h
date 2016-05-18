@@ -2,7 +2,7 @@
 
 //Game general information
 #define GAME_SPEED 0.1f
-#define GAME_TEXTURES 2
+#define GAME_TEXTURES 3
 
 
 //Sprite information
@@ -11,6 +11,8 @@
 #define SPRITE_DEFAULT_HEIGHT 64
 #define SPRITE_HERO 0
 #define SPRITE_FIRE 1
+#define LOAD 2
+#define TRACK 3
 
 //Color information
 #define GAME_BASIC_COLORS 5
