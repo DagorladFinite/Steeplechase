@@ -122,14 +122,29 @@ void Game::executePlayerCommands() {
 		std::cout << "Screen (" << mouseCoords.x << ", " << mouseCoords.y << ")"<< std::endl;
 	}
 
-	if (_graphic.isKeyDown(SDLK_UP)) {
+	if (_graphic.isKeyPressed(SDLK_UP)) {
+		if (network.status == 1) {
+			if (players[network.playerNumber].getXAtWorld() < 640) {
+
+				moveSendCheck = true;
+				players[network.playerNumber].setPositionAtWorld(players[network.playerNumber].getXAtWorld(), 75 + (network.playerNumber*150)-25);
+			}
+		}
 		
 	}
 
 	if (_graphic.isKeyDown(SDLK_LEFT)) {
 		
 	}
-	if (_graphic.isKeyDown(SDLK_DOWN)) {
+	if (_graphic.isKeyPressed(SDLK_DOWN)) {
+
+		if (network.status == 1) {
+			if (players[network.playerNumber].getXAtWorld() < 640) {
+
+				moveSendCheck = true;
+				players[network.playerNumber].setPositionAtWorld(players[network.playerNumber].getXAtWorld(), 75 + (network.playerNumber * 150) + 25);
+			}
+		}
 		
 	}
 

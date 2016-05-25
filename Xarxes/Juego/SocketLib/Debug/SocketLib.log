@@ -1,9 +1,9 @@
-﻿Build started 18/05/2016 16:40:11.
-     1>Project "C:\Users\rcoll\Documents\GitHub\Steeplechase\Xarxes\Juego\SocketLib\SocketLib.vcxproj" on node 2 (Build target(s)).
+﻿Build started 25/05/2016 12:09:58.
+     1>Project "C:\Users\Víctor\Documents\GitHub\Steeplechase\Xarxes\Juego\SocketLib\SocketLib.vcxproj" on node 2 (Build target(s)).
      1>Lib:
-         SocketLib.vcxproj -> C:\Users\rcoll\Documents\GitHub\Steeplechase\Xarxes\Juego\Debug\SocketLib.lib
-     1>Done Building Project "C:\Users\rcoll\Documents\GitHub\Steeplechase\Xarxes\Juego\SocketLib\SocketLib.vcxproj" (Build target(s)).
+         SocketLib.vcxproj -> C:\Users\Víctor\Documents\GitHub\Steeplechase\Xarxes\Juego\Debug\SocketLib.lib
+     1>Done Building Project "C:\Users\Víctor\Documents\GitHub\Steeplechase\Xarxes\Juego\SocketLib\SocketLib.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.05
+Time Elapsed 00:00:00.11

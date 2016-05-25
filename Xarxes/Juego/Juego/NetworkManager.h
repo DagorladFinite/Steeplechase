@@ -46,6 +46,8 @@ public:
 	int playerPositions[4];
 	int playerPrevPositions[4];
 
+	int lane;
+
 	//LEYENDA:
 	//0 NO CONECTADO
 	//1 CONECTADO

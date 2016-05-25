@@ -1,9 +1,9 @@
-﻿Build started 18/05/2016 16:42:49.
-     1>Project "C:\Users\rcoll\Documents\GitHub\Steeplechase\Xarxes\Juego\Server\Server.vcxproj" on node 2 (Build target(s)).
+﻿Build started 25/05/2016 12:21:56.
+     1>Project "C:\Users\Víctor\Documents\GitHub\Steeplechase\Xarxes\Juego\Server\Server.vcxproj" on node 2 (Build target(s)).
      1>Link:
-         Server.vcxproj -> C:\Users\rcoll\Documents\GitHub\Steeplechase\Xarxes\Juego\Debug\Server.exe
-     1>Done Building Project "C:\Users\rcoll\Documents\GitHub\Steeplechase\Xarxes\Juego\Server\Server.vcxproj" (Build target(s)).
+         Server.vcxproj -> C:\Users\Víctor\Documents\GitHub\Steeplechase\Xarxes\Juego\Debug\Server.exe
+     1>Done Building Project "C:\Users\Víctor\Documents\GitHub\Steeplechase\Xarxes\Juego\Server\Server.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.03
+Time Elapsed 00:00:00.06
