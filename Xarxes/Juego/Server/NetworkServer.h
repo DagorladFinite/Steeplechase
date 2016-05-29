@@ -29,6 +29,7 @@ public:
 	bool ReceiveBit();
 	void SendToAll(std::string _message);
 	void sendToAllChar(char*);
+	void Finish(int player);
 	
 
 	void Dispatch();

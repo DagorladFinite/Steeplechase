@@ -148,7 +148,7 @@ void NetworkManager::sendMove() {
 
 			//Envío
 			SendBit(ombs.GetBufferPtr(), ombs.GetByteLength());
-			std::cout << "Envío el número de veces que he pulsado"<< timesPressed << std::endl;
+			//std::cout << "Envío el número de veces que he pulsado"<< timesPressed << std::endl;
 			
 			//Pongo el contador de inputs a cero
 			timesPressed = 0;
@@ -201,22 +201,26 @@ void NetworkManager::processBit(char* _message, int _size) {
 	}
 	else if (pt == PacketType::PT_AUTHOR) {
 
-		std::cout << "Posición del jugador 1: "<< std::endl;
+		//std::cout << "Posición del jugador 1: "<< std::endl;
 		imbs.Read(&playerPositions[0], 10);
-		std::cout << &playerPositions[0];
+		//std::cout << &playerPositions[0];
 
-		std::cout << "Posición del jugador 2: " << std::endl;
+		//std::cout << "Posición del jugador 2: " << std::endl;
 		imbs.Read(&playerPositions[1], 10);
-		std::cout << &playerPositions[1];
+		//std::cout << &playerPositions[1];
 
-		std::cout << "Posición del jugador 3: " << std::endl;
+		//std::cout << "Posición del jugador 3: " << std::endl;
 		imbs.Read(&playerPositions[2], 10);
-		std::cout << &playerPositions[2];
+		//std::cout << &playerPositions[2];
 
-		std::cout << "Posición del jugador 4: " << std::endl;
+		//std::cout << "Posición del jugador 4: " << std::endl;
 		imbs.Read(&playerPositions[3], 10);
-		std::cout << &playerPositions[3];
+		//std::cout << &playerPositions[3];
 
+	}
+  	else if (pt == PacketType::PT_FINISH) {
+		imbs.Read(&winner, 2);
+		std::cout << "Winner:" << winner;
 	}
 	
 }

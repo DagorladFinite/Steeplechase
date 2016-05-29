@@ -2,7 +2,7 @@
 
 //Game general information
 #define GAME_SPEED 0.1f
-#define GAME_TEXTURES 3
+#define GAME_TEXTURES 4
 
 
 //Sprite information
@@ -13,6 +13,7 @@
 #define SPRITE_FIRE 1
 #define LOAD 2
 #define TRACK 3
+#define HERO2 4
 
 //Color information
 #define GAME_BASIC_COLORS 5

@@ -46,6 +46,8 @@ public:
 	int playerPositions[4];
 	int playerPrevPositions[4];
 
+	int winner;
+
 	int lane;
 
 	//LEYENDA:

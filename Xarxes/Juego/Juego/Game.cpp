@@ -47,13 +47,29 @@ void Game::init() {
 	_graphic.loadTexture(SPRITE_FIRE, "../sharedResources/images/characters/fireSprite.png");
 	_graphic.loadTexture(LOAD, "../sharedResources/images/interface/load.png");
 	_graphic.loadTexture(TRACK, "../sharedResources/images/interface/track.png");
+	_graphic.loadTexture(HERO2, "../sharedResources/images/characters/her2o.png");
 		//Set the font style
 	_graphic.setFontStyle(TTF_STYLE_NORMAL);
 		//Initialize the game elements
+	int starty = 75;
+	for (int i = 0; i < 4; i++)
+	{
+		if (i == network.playerNumber)
+		{
+			players[i].setInitialValues(10, starty, HERO2, 0, 4);
+		}
+		else {
+			players[i].setInitialValues(10, starty, SPRITE_HERO, 0, 4);
+			
+		}
+		starty += 150;
+	}
+	/*
 	players[0].setInitialValues(10, 75, SPRITE_HERO, 0, 4);
 	players[1].setInitialValues(10,225, SPRITE_HERO, 0, 4);
 	players[2].setInitialValues(10, 375, SPRITE_HERO, 0, 4);
 	players[3].setInitialValues(10, 525, SPRITE_HERO, 0, 4);
+	*/
 
 	//network.initialize()
 }
@@ -72,8 +88,14 @@ void Game::gameLoop() {
 		network.sendHelloBit();
 
 		
-
+		
 		network.ReceiveBit(message);
+
+		if (network.Start()==true && s == false)
+		{
+			initplayers();
+			s = true;
+		}
 			//Detect keyboard and/or mouse events
 		_graphic.detectInputEvents();
 
@@ -237,6 +259,23 @@ void Game::renderGame() {
 void Game::drawSprite(Sprite & sprite) {
 	_graphic.drawTexture(sprite.getSpriteId(), SPRITE_DEFAULT_WIDTH*sprite.getCurrentFrame(), 0, SPRITE_DEFAULT_WIDTH, SPRITE_DEFAULT_HEIGHT
 											 , sprite.getXAtWorld(), sprite.getYAtWorld(), SPRITE_DEFAULT_WIDTH, SPRITE_DEFAULT_HEIGHT);
+}
+
+void Game::initplayers()
+{
+	int starty = 75;
+	for (int i = 0; i < 4; i++)
+	{
+		if (i == network.playerNumber)
+		{
+			players[i].setInitialValues(10, starty, HERO2, 0, 4);
+		}
+		else {
+			players[i].setInitialValues(10, starty, SPRITE_HERO, 0, 4);
+
+		}
+		starty += 150;
+	}
 }
 
 

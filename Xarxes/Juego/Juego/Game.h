@@ -30,6 +30,7 @@ class Game {
 		SDLInterface _graphic;			//Manage the SDL graphic library		
 		Sprite players[4];
 		NetworkManager network;
+		bool s = false;
 		
 		bool moveSendCheck = false;
 
@@ -40,7 +41,7 @@ class Game {
 		void doPhysics();
 		void renderGame();
 		void drawSprite(Sprite & e);
-		
+		void initplayers();
 		
 };
 

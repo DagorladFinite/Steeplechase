@@ -94,6 +94,20 @@ void NetworkServer::sendToAllChar(char* _message){
 
 }
 
+void NetworkServer::Finish(int player)
+{
+	OutputMemoryBitStream ombs;
+	ombs.Write(PacketType::PT_FINISH, 3);
+	//Escribimos en nuestro OMBS las posiciones absolutas de los jugadores.
+ 	ombs.Write(player, 2);
+	sendToAllChar(ombs.GetBufferPtr());
+
+	for (int i = 0; i < 4; i++)
+	{
+		playerList[i].position = 0;
+	}
+}
+
 
 
 bool NetworkServer::processMessage(std::string _message, SocketAddress _saClient)
@@ -183,7 +197,7 @@ bool NetworkServer::processMessageBit(char* _message,int _size, SocketAddress _s
 
 	if (pt == PacketType::PT_MOVE) {
 
-		std::cout << "Me ha llegado una petición de movimiento."<< std::endl;;
+		//std::cout << "Me ha llegado una petición de movimiento."<< std::endl;;
 		int toMove = 0;
 
 		//Incremento de posición
@@ -192,10 +206,15 @@ bool NetworkServer::processMessageBit(char* _message,int _size, SocketAddress _s
 		//Posición de seguridad enviada por el cliente.
 		//Se establece aquí para evitar el impacto de la perdida de paquetes.
 		imbs.Read(&playerList[player].position, 10);
-
+		if (playerList[player].position >= 637)
+		{
+			Finish(player);
+			std::cout << "Victoria del jugador: " << player << std::endl;
+		}
+		
 		
 		playerList[player].position = playerList[player].position + (3 * toMove);
-		std::cout << "El jugador se ha movido a la posición: " << playerList[player].position << std::endl;
+		//std::cout << "El jugador se ha movido a la posición: " << playerList[player].position << std::endl;
 		
 
 	}
