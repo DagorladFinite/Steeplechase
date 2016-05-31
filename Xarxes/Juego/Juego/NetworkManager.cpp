@@ -220,7 +220,14 @@ void NetworkManager::processBit(char* _message, int _size) {
 	}
   	else if (pt == PacketType::PT_FINISH) {
 		imbs.Read(&winner, 2);
-		std::cout << "Winner:" << winner;
+		if (winner == playerNumber)
+		{
+			std::cout << std::endl << "You won, congratulations!:"<<std::endl;
+		}
+		else {
+			std::cout << std::endl << "You lost! The winner is: Player " << winner << std::endl;
+		}
+		
 	}
 	
 }
