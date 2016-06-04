@@ -50,6 +50,8 @@ public:
 
 	int lane;
 
+	int serverCheaterBusterCheck = 0;
+
 	//LEYENDA:
 	//0 NO CONECTADO
 	//1 CONECTADO

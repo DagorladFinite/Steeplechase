@@ -24,5 +24,6 @@ public:
 
 	bool connected = false;
 	int position;
+	int antiCheatCount;
 };
 

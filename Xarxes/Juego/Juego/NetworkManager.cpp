@@ -217,6 +217,8 @@ void NetworkManager::processBit(char* _message, int _size) {
 		imbs.Read(&playerPositions[3], 10);
 		//std::cout << &playerPositions[3];
 
+		imbs.Read(&serverCheaterBusterCheck, 1);
+
 	}
   	else if (pt == PacketType::PT_FINISH) {
 		imbs.Read(&winner, 2);
@@ -227,6 +229,8 @@ void NetworkManager::processBit(char* _message, int _size) {
 		else {
 			std::cout << std::endl << "You lost! The winner is: Player " << winner << std::endl;
 		}
+
+		playerPositions[playerNumber] = 10;
 		
 	}
 	

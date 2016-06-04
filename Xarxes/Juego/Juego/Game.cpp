@@ -125,6 +125,7 @@ void Game::gameLoop() {
 			//Update the game physics
 		doPhysics();
 
+		network.serverCheaterBusterCheck;
 			//Render game
 		renderGame();			
 	}
@@ -205,9 +206,7 @@ void Game::doPhysics() {
 	//Actualizamos las posiciones de los jugadores con las posiciones que recibimos del servidor
 	for (size_t i = 0; i < 4; i++)
 	{
-
 		players[i].setPositionAtWorld(network.playerPositions[i], players[i].getYAtWorld());
-
 	}
 
 	//Animación del pollo (Placeholder)

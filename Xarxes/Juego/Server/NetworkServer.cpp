@@ -23,6 +23,7 @@ NetworkServer::NetworkServer(std::string _strServerAddress)
 	{
 		playerList[i].connected = false;
 		playerList[i].position = 10;
+		playerList[i].antiCheatCount = 0;
 	}
 
 	
@@ -106,6 +107,28 @@ void NetworkServer::Finish(int player)
 	{
 		playerList[i].position = 0;
 	}
+}
+
+void NetworkServer::CheaterBuster()
+{
+	for (size_t i = 0; i < 4; i++)
+	{
+
+		if (playerList[i].antiCheatCount >= MAX_3_INPUT_COUNT) {
+
+
+			playerList[i].position = 10;
+			playerList[i].antiCheatCount = 0;
+			cheaterAlarm = 1;
+
+			std::cout << "Tenemos un tramposo!" << std::endl;
+
+		}
+
+	}
+
+
+
 }
 
 
@@ -197,25 +220,41 @@ bool NetworkServer::processMessageBit(char* _message,int _size, SocketAddress _s
 
 	if (pt == PacketType::PT_MOVE) {
 
+
+		newInfo = true;
 		//std::cout << "Me ha llegado una petición de movimiento."<< std::endl;;
 		int toMove = 0;
 
 		//Incremento de posición
 		imbs.Read(&toMove, 2);
 
+		//Revisamos el número de pulsaciones
+		//El record Guinness de pulsaciones en 5 segundos nos permite calcular el número de pulsaciones cada 100ms
+		//Este número de pulsaciones es aproximadamente 1,5 - 2,25 pulsaciones/100ms
+		//De esto extraemos que el número de veces que podamos ver un 3 es INFINITAMENTE PEQUEÑO
+		//Si detectamos más de un cierto número, devolvemos al jugador al inicio
+		//No rest for the wicked
+
+		if (toMove == 3) {
+
+			playerList[player].antiCheatCount++;
+
+		}
+
 		//Posición de seguridad enviada por el cliente.
 		//Se establece aquí para evitar el impacto de la perdida de paquetes.
 		imbs.Read(&playerList[player].position, 10);
-		if (playerList[player].position >= 637)
-		{
-			Finish(player);
-			std::cout << "Victoria del jugador: " << player << std::endl;
-		}
+
 		
 		
 		playerList[player].position = playerList[player].position + (3 * toMove);
 		//std::cout << "El jugador se ha movido a la posición: " << playerList[player].position << std::endl;
 		
+		if (playerList[player].position >= 637)
+		{
+			Finish(player);
+			std::cout << "Victoria del jugador: " << player << std::endl;
+		}
 
 	}
 
@@ -235,7 +274,11 @@ void NetworkServer::Dispatch(){
 			ombs.Write(playerList[i].position, 10);
 
 		}
+
+		ombs.Write(cheaterAlarm, 1);
 		sendToAllChar(ombs.GetBufferPtr());
+
+		cheaterAlarm = 0;
 		dispatchTime = time;
 	}
 

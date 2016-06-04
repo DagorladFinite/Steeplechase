@@ -30,9 +30,13 @@ public:
 	void SendToAll(std::string _message);
 	void sendToAllChar(char*);
 	void Finish(int player);
+	void CheaterBuster();
 	
 
 	void Dispatch();
+	
+	int cheaterAlarm = 0;
+	bool newInfo;
 	int playerlibre = 0;
 	
 

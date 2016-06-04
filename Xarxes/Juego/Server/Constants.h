@@ -17,3 +17,5 @@ enum PacketType
 	PT_DISCONNECT,
 	PT_FINISH
 };
+
+#define MAX_3_INPUT_COUNT 10
